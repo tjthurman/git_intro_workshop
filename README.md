@@ -10,7 +10,7 @@ GitHub is a website where you can store Git repositories, share them with others
 
 ## Interacting with Git/Github
 
-You can work with git in a number of ways: it is a command line program, so you can do everything from the terminal. All commands take the form `git command -flags options`. I (and many others) find it easier to do most things in a GUI, of which there are many available. RStudio has some built in git functionality if you want to stay within one program, as does Visual Studio Code. I also like GitKraken a lot, which is a paid app but which I've used for years with free student and teacher licences. For today, I'll show you a little of everything. 
+You can work with git in a number of ways: it is a command line program, so you can do everything from the terminal. All commands take the form `git command -flags options`. I (and many others) find it easier to do most things in a GUI, of which there are many available. RStudio has some built in git functionality if you want to stay within one program, as does Visual Studio Code. I also like GitKraken a lot, which is a paid app but which I've used for years with free student and teacher licenses. For today, I'll show you a little of everything. 
 
 ## Before we begin...
 
@@ -49,15 +49,15 @@ Anyway, go make some changes to your files, and then we'll explore the next step
 
 ### See the current state: `git status`
 
-Tells you what files have changed or been added/deleted since the last commit, and whether any of those changes are "staged", which we will return to. This is a place where I think GUIs are useful: Rstudio, VSCode, and GitKraken all have nice displays of which files have changed since the 
+Tells you what files have changed or been added/deleted since the last commit, and whether any of those changes are "staged", which we will return to. This is a place where I think GUIs are useful: Rstudio, VSCode, and GitKraken all have nice displays of which files have changed since the last commit.
 
 ### See specific change(s): `git diff`
 
-`git status` only lists which files have changed since the last commit, it does not say HOW they have changed. The `git diff` command does that (it is similar to the unix `diff` that let's you compare files). Here again, I like GUIs better for this.
+`git status` only lists which files have changed since the last commit, it does not say HOW they have changed. The `git diff` command does that (it is similar to the unix `diff` that lets you compare files). Here again, I like GUIs better for this, and rarely bother with actually using `git diff`.
 
 ### "Stage" file(s): `git add`
 
-Next, you tell git which changes/files you'd like to include in your next commit. In the command line, you use the `git add` command to stage changes. Again, the GUIs can be easier for this, as you can usually point and click. 
+Next, you tell git which changes/files you'd like to include in your next commit. In the command line, you use the `git add` command to stage changes. Again, the GUIs can be easier for this, as you can point and click. 
 
 One thing to note: if you stage the changes in a file, and then make additional changes, you'll have to stage the file again for that second round of changes to be included in the commit. 
 
@@ -67,8 +67,8 @@ This is a text file where you list files for Git to ignore. Changes in these fil
 
 Things to ignore:
 * Large files: GitHub has a soft limit of 50MB for files, and a had limit of rejecting pushes >100MB. If repos get too large (i.e., a few GB) you may get warnings from GitHub.
-* Local config files (e.g., .Rproj.user, bash/zsh histories and config settings)
-* Locally installed software
+* Local config files (e.g., .Rproj.user, bash/zsh histories, and config settings you don't want to share)
+* Locally installed software (e.g., if you have a local bin/ folder inb your repo)
 * Files that can easily be regenerated (e.g., .html and .pdf reports from RMarkdown)
 * Some types of binary files (.xlsx, .pdf). Sometimes it can be useful to track these, just to see if they have changed. But `git diff` will not be useful in seeing what has actually changed. 
 
@@ -76,11 +76,11 @@ Things to ignore:
 
 Once you've made the changes you want and staged them, you commit them to create your checkpoint/snapshot. You can use the `git commit` command, but again the GUIs have nicer options for writing nice commit messages. This is an important part of git: the commit messages provide information and context for you when you're going back and looking through your old code. So strive to write commit messages that are informative and concise. 
 
-How often should you commit your changes? This is mostly up to you in terms of personal style, and the culture/expectations of the team you're working with. I generally try to keep commits focused on one issue or theme, so that the changes are clearer. Lots of small commits could be a little annoying, but I would err on the side of too many commits than too few. A big, cumbersome commit with hundreds of file changes can be hard to understand. 
+How often should you commit your changes? This is mostly up to you in terms of personal style and the culture/expectations of the team you're working with. I generally try to keep commits focused on one issue or theme, so that the changes are clearer. Lots of small commits could be a little annoying, but I would err on the side of too many commits than too few. A big, cumbersome commit with hundreds of file changes can be hard to understand. 
 
 ### Sync your changes: `git push` and `git pull`
 
-So, you've made a bunch of changes and had git remember them. At the moment, these changes are only present on your computer: Git isn't like Dropbox, it doesn't automatically sync file changes between your computer and github. You have to do that yourself, using two commands: `git push` sends changes from your computer to GitHub, and `git pull` retrieves changes from GitHub and puts them on your computer. The repo on github is often called a "remote". 
+So, you've made a bunch of changes and had git remember them. At the moment, these changes are only present on your computer: Git isn't like Dropbox, it doesn't automatically sync file changes between your computer and Github. You have to do that yourself, using two commands: `git push` sends changes from your computer to GitHub, and `git pull` retrieves changes from GitHub and puts them on your computer (technically, `git pull` combines two commands into one: `git fetch` to check for new changes, and `git merge` to incorporate those new changes). As a bit of Git terminology, The repo on github is called a "remote". 
 
 When you're working by yourself on a single computer, you should only need to push your changes. Once you start working across multiple computers, you need to be a little more careful. A general piece of advice is to run `git pull` often to make sure your local repo has all the latest changes from GitHub/the remote. To explain why consider this scenario:  
 
@@ -122,20 +122,22 @@ In most cases, this merge process is automatic and painless: git can easily figu
 
 When this happens, Git will abort the merge. Depending on how you're interacting with Git, different things may happen. Some programs (GitKraken) have integrated tools to help with merge conflicts. If you're working from the terminal, you'll need to use `git status` to figure out which file(s) are causing the conflict. Then, you'll need to resolve the conflict: we can look at an example here: https://happygitwithr.com/git-branches.html?q=merge#merging-a-branch
 
+One of the more confusing things that can happen is, after you fix the conflict (and especially when working in the terminal), git may open up your default terminal text editor and ask you to write a merge message (like a commit message). This is usually made extra confusing if you rarely use the default terminal text editor. It is likely a program called Vi or Vim, which has a lot of weird settings and hotkeys that make it hard to navigate, save things, and exit. If that happens, check out this Stackoverflow answer: https://stackoverflow.com/questions/19085807/please-enter-a-commit-message-to-explain-why-this-merge-is-necessary-especially
+
 Again, in general, its best to avoid merge conflicts by: (1) running `git status` or equivalent frequently, so you know what is going on, (2) pulling new changes into your work frequently (we'll talk about how to do this in our collaborative setting soon), and (3) doing most of your work in independent feature branches, and rarely making commits in "main". That is, most of the changes that occurr in the main branch should be happen via merges/pull requests from other branches.
 
 With those concepts out of the way, let's (finally!) talk about how to collaborate on a shared repository (like our proteomics R package). 
 
 ## A simple(?) workflow for working together
 
-The workflow model we'll use is called sometimes called "fork-branch-pull" or "fork-and-clone". We'll follow along from this tutorial (https://www.tomasbeuzen.com/post/git-fork-branch-pull/), though this general workflow is described elsewhere (e.g., https://happygitwithr.com/fork-and-clone.html#fork-and-clone). This is also the workflow used for QIIME 2 development. We will:
+The workflow model we'll use is called sometimes called "fork-branch-pull" or "fork-and-clone". We'll follow along from this tutorial (https://www.tomasbeuzen.com/post/git-fork-branch-pull/), though this general workflow is described elsewhere as well (e.g., https://happygitwithr.com/fork-and-clone.html#fork-and-clone). This is also (more or less?) the workflow used for QIIME 2 development. We will:
 
 1. On Github, make a personal copy of an existing repo owned by someone else ("fork").
-2. Copy our personal copy down to our computer, where we can work on it ("clone").
+2. Copy our personal copy down to our computer, where we can work on it.
 3. Configure our local copy so that it can pull changes from the original repository. 
-4. Make our changes in a new branch, which we can optionally sync up with OUR COPY of the repo ("branch").
-5. Request that our changes be added to the original repository by opening a "pull request", which the owner of the other repo can accept or reject "pull".
-6. Optionally, delete our branch.
+4. Make our changes in a new branch, which we can sync up with our copy of the repo.
+5. Request that our changes be added to the original repository by opening a "pull request", which the owner of the original repo can accept or reject.
+6. Optionally, delete our branch/fork.
 
 ### Make a personal copy of someone else's repo ("fork")
 
@@ -145,8 +147,60 @@ On GitHub, navigate to the repo you want to contribute to, then click "fork" in 
 
 We've done this once before. See if you can remember, or refer to the git clone section above. 
 
-### 
+### Set up the remotes on your local repo
 
+We've cloned the local copy of our repo from our personal copy on our Github: this automatically set up our personal GitHub repo as a "remote" repository that we can push to and pull from. But we also want/need to be able to pull changes from the original repository while we're working on our local copy. That way, we can incorporate changes from the original repository, hopefully making it easy to merge later on down the line. 
+
+So, we'll set the ORIGINAL repository as an "upstream remote". Go to the original repo and copy the URL for the repo (same as you did for cloning in the first section). Then, add the original repo as an upstream remote with:
+
+`git remote add upstream https://github.com/user/orginal_repo.git`
+
+You can double check this worked with `git remote -v`, which lists your current remotes. You should see the URL for your personal fork with "origin" in front of it, and the URL for the proteomicsDIA fork with "upstream" in front of it. 
+
+### Make a branch in your local repo
+
+Now, you can make a branch in your local repo (maybe named after the issue you'll be working on) and make changes to the code in that branch as normal. You can commit those changes, push them to your personal copy of the repo, and generally work with your "fork" as if it were your own. The main difference is that, you'll want to periodically check to see if the original repository has been updated, and incorporate those changes if so. 
+
+### Incorporate changes from the original repo
+
+To do that, switch to the main branch of your local repo (`git checkout main`). Then, we can check on our remote upstream branch and see if there have been any changes:
+
+`git fetch upstream main`
+
+Once we do that, we can run `git status`: if it says our branch is "behind" the upstream branch, then we can incorporate those changes:
+
+`git pull upstream main`.
+
+Then, switch to the feature branch you're working from (`git checkout new_feature`), and merge in the changes from your local master branch (`git merge main`). You may have to deal with some merge conflicts here. But better to do this often, and deal with merge conflicts when they are small, than to never pull any updates and run into big issues later! 
+
+At this point, we've incorporated the changed from the original repo into (1) our local main branch, and (2) our local feature branch). If we want to keep the main branch of our git repo up-to-date (which is not necessary, but maybe you like keeping it all synced), then switch to the main branch and push it to your personal repo:
+
+`git checkout main`
+`git push origin main`
+
+Now, everything should be nice and in-sync, and you can go back to working on your feature branch and making all your code changes. Once you've made all the changes you want and are ready for them to be integrated into the original repo, commit all your changes and push them to your GitHub fork. 
+
+### Request for your changes to be incorporated
+
+So, we've made some changes to our personal copy, and we want to add those to the original repo. We can do that by making a "pull request". This is a GitHub feature where we ask the owner of a different repository to pull in our changes. Depending on how access permissions are set up on the repo, you can start a pull request a few different ways.
+
+We'll assume that you don't have permissions for the original repo. Go to your fork, and you'll either see a new option to make a pull request, or you may have to click on your branches and start one from there. Like with a commit, you'll want to provide a good message. A nice trick: if your PR fixes an existing issue, can say "fixes #XX" or "closes #XX" in your pull request message, and GitHub will automatically close the issue for you when it is merged. 
+
+When you complete a PR, your code isn't automatically incorporated: the owner of the repository has a chance to check out your code, see if they want to included it, ask you to make changes, etc. GitHub has a lot of nice features that can be used to perform automated checks on the code in a pull request: it can not only check whether git can successfully merge the code, but you can set up many other things as well (e.g., can check the format of the code, or run R CMD CHECK to see if the package is intact). Would be nice to set that up at some point!
+
+Once the PR is accepted, that feature branch can be deleted, both from your local copy and from your fork.
+
+### Repeat
+
+If you want to do more work on the repo, you can do a couple things. If you have no uncommited changes, you could just delete your fork altogether and make a new one, which will now incorporate your new changes. This might be a good idea in a really active repository that you won't be returning to for a while: if you don't want to start work on it again immediately, better to just re-fork later rather than be constantly pulling in new changes. 
+
+In our case, it may be better to just re-sync your local fork with the remote one. You can pull in the changes to your local main branch, as discussed above:
+
+`git checkout main` # check out local  main branch
+`git fetch upstream main` # check for changes from upstream
+`git pull upstream main` # incorporate upstream changes
+
+Then, you may want/need to push your these changes from your local main branch to the main branch of your GitHub: `git push origin main`. But again, that is sort of optional: you do all your branching from the local version of main. 
 
 
 ## Further resources
@@ -155,9 +209,9 @@ https://github.com/k88hudson/git-flight-rules - A set of "flight rules", basical
 
 https://ohshitgit.com - A little like the "flight rules", but with descriptions written more in plain language, less in Git jargon. Can be helpful when you're trying to fix something, but don't quite know the Git lingo for what you want to do. 
 
-https://happygitwithr.com/index.html - A very R-focused tutorial on using Git and GitHub. Great if you want to mostly use the RStudio GUI, and some R packages that wrap some GIT functionality and make it a little easier to work with. It also has some really good workflows and advice about how to fix mistakes. 
+https://happygitwithr.com/index.html - A very R-focused tutorial on using Git and GitHub. Great if you want to mostly use the RStudio GUI, and some R packages that wrap some git functionality and make it a little easier to work with. It also has some really good workflows and advice about how to fix mistakes. 
 
 https://ohmygit.org -  This is a game that is supposed to help you visualize Git structures and learn Git. I have never played it, no idea if it is actually worth it.
 
-There are many more resources and explanations at official git website: https://git-scm.com. Sometimes these are very useful, and sometimes they are too deep in the jargon. They have a free online book that has lots of useful material (e.g., https://git-scm.com/book/en/v2/Getting-Started-What-is-Git%3F). 
+There are many more resources and explanations at the official git website: https://git-scm.com. Sometimes these are very useful, and sometimes they are too deep in the jargon. They have a free online book that has lots of useful material (e.g., https://git-scm.com/book/en/v2/Getting-Started-What-is-Git%3F). 
 
