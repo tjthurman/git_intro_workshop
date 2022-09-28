@@ -203,6 +203,24 @@ In our case, it may be better to just re-sync your local fork with the remote on
 
 Then, you may want/need to push your these changes from your local main branch to the main branch of your GitHub: `git push origin main`. But again, that is sort of optional: you do all your branching from the local version of main. 
 
+### Reviewing a PR
+
+Say you're the maintainer of repository and someone has just made a pull request. You looked at the code online and it seems fine, but you want to double-check it by actually running the code on your computer. There are ways to do this! The GitHub command-line interface, which we haven't talked about, provides an option to do this. But you can also do it with regular git.
+
+To make this more explicit, let's assume we're working on the same project we've been discussing throughout this workshop. There's a "primary" repository that you don't own, and you have a fork of it in your personal GitHub and have set the primary repo as an upstream remote to your fork. Someone else, with username "coder_X", has their own personal fork of the primary repository and implemented a feature in a branch called "feature_branch". They make a pull request, number 99, for that branch against the primary repository. You'd like to download that code on your computer and check it out. First, you'd fetch the changes:
+
+`git fetch upstream/URL pull/99/head:coder_X/feature_branch`
+
+This would let you see the changes in the git history. To actually incorporate the changes, make a new branch (maybe, PR_checking?):
+
+`git branch PR_checking`
+
+Checkout that branch, and then pull/merge in the changes:
+
+`git pull upstream/URL pull/99/head:coder_X/feature_branch`
+
+What if you discover some changes you'd like to make. In general, the best thing to do is to just use the GitHub review features to ask coder_X to make changes. If you really want, you could commit changes on your branch (PR_checking), push them up to your own fork on GitHub (`git push origin/PR_checking`), and then open a full request against the feature_branch in coder_X's fork of the repo. Then, coder_X could incorporate those changes, and those changes would also be reflected in their pull request against the "primary" repository.  
+
 
 ## Further resources
 
