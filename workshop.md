@@ -221,6 +221,12 @@ Checkout that branch, and then pull/merge in the changes:
 
 What if you discover some changes you'd like to make. In general, the best thing to do is to just use the GitHub review features to ask coder_X to make changes. If you really want, you could commit changes on your branch (PR_checking), push them up to your own fork on GitHub (`git push origin/PR_checking`), and then open a full request against the feature_branch in coder_X's fork of the repo. Then, coder_X could incorporate those changes, and those changes would also be reflected in their pull request against the "primary" repository.  
 
+## Working across multiple computers
+
+In general, working across multiple computers is made much easier with Git and GitHub: as long as you keep your repo on GitHub up-to-date with the latest code, you can always pull it down to a local computer (either by cloning, if you don't already have a local repo on your computer, or by pulling/merging if you do). One issue that sometimes comes up: say you've been working on a feature branch on your laptop and you've made some commits and pushed them to GitHub. The next day, you want to work on the same feature branch, but from your desktop computer, where you have a version of the repo, but you only have the main/master branch, not the feature branch. You can use one command to simultaneously make a new local branch with the same name and pull down the commits from the remote branch:
+
+`git switch name_of_remote_branch`
+
 
 ## Further resources
 
